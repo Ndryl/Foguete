@@ -7,19 +7,25 @@
 #include "busca.h"
 
 
-void find_CPF(vector<astronauta>& lista, string cpf){
-    for(const auto& interador : lista){
-        if(interador.dadoCpf() == cpf){
+
+astronauta* find_CPF(vector<astronauta>& lista, const string& cpf) {
+    for(auto& interador : lista) {
+        if(interador.dadoCpf() == cpf) {
             return &interador;
         }
     }
-    cout<<"Este CPF não está cadastrado." << endl;
+    cout << "Este CPF não está cadastrado." << endl;
+    return nullptr;
 }
-void find_CPF(vector<voo>& lista, int numero){
-    for(const auto& interador : lista){
-        if(interador.dadoNumeroDeVoo() == numero){
-            return &interador;
+
+
+
+voo* find_voo(std::vector<voo>& voos, int numeroDeVoo) {
+    for (auto& voo : voos) {
+        if (voo.dadoNumeroDeVoo() == numeroDeVoo) {
+            return &voo;
         }
     }
-    cout<<"Este voo não está cadastrado." << endl;
+    return nullptr;
 }
+
