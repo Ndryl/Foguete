@@ -11,13 +11,18 @@ class astronauta{
         string cpf;
         string nome;
         int idade;
-        string status;
+        string status = "Disponível";
     public:
         astronauta registrarAstronauta(string cpf, string nome, int idade);
         void showMe() const;
         string dadoCpf() const;
-        string dadoNome() const;
+        string dadoNome()const;
         int dadoIdade() const;
+        void status_abordo();
+        void status_decolando();
+        void status_nao_abordo();
+        void status_morto();
+        string dadoStatus();
 };
 
 #endif

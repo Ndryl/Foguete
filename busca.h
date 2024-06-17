@@ -9,9 +9,8 @@
 
 
 
-void find_CPF(vector<astronauta>& lista, string cpf);
-void find_numero(vector<voo>& lista, int numero);
-
+astronauta* find_CPF(vector<astronauta>& lista, const string& cpf);
+voo* find_voo(std::vector<voo>& voos, int numeroDeVoo);
 
 
 
