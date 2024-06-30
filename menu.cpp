@@ -47,13 +47,25 @@ void menu(){
                 astronauta vulgo;
                 string cpf, nome;
                 int idade;
+                bool cpf_e_repetido = false;
                 cout << "Digite o CPF do astronauta: ";
                 cin >> cpf;
-                cout << "Digite o nome do astronauta: ";
-                cin >> nome;
-                cout << "Digite a idade do astronauta: ";
-                cin >> idade;
 
+                for (auto& astronauta : registro_astronauta) {
+                    if (astronauta.dadoCpf() == cpf) {
+                        cout << "Este CPF já está registrado" << endl;
+                        cpf_e_repetido = true;
+                        cin.ignore();
+                        cin.get();
+                        break;
+                    }
+                }
+                if(!cpf_e_repetido){
+
+                    cout << "Digite o nome do astronauta: ";
+                    cin >> nome;
+                    cout << "Digite a idade do astronauta: ";
+                    cin >> idade;
                 vulgo = vulgo.registrarAstronauta(cpf, nome, idade);
                 system("clear");
                 add_array(registro_astronauta, vulgo);
@@ -63,42 +75,113 @@ void menu(){
                 cin.ignore();
                 cin.get();
                 break;
+                }else{
+                    break;
+                }
+                
+
             }
             case 2:{
                 voo foguetao;
                 int anota_placa;
+                bool voo_existe = false;
                 cout << "Digite o número de registro do foguete: ";
                 cin >> anota_placa;
+                for (auto& voo : registro_voo) {
+                    if (voo.dadoNumeroDeVoo() == anota_placa) {
+                        cout << "O voo já esta registrado" << endl;
+                        voo_existe = true;
+                        cin.ignore();
+                        cin.get();
+                        break;
+                    }
+                }
+                if(!voo_existe){
+
                 foguetao.registra_voo(anota_placa);
                 add_array_2(registro_voo, foguetao);
 
                 break;
+                }else{
+                    break;
+                }
+
             }
             case 3:{
                 int placa;
                 string cpf;
-                cout << "Digite o número de voo: ";
-                cin >> placa ;
-                cout << "Digite o cpf de registro: ";
-                cin >> cpf;
-                voo* foguetao = find_voo(registro_voo, placa);
-                astronauta* vulgo = find_CPF(registro_astronauta, cpf);
-                vulgo->status_abordo();
-                vulgo->showMe();
+                if(registro_voo.empty()){
+                    cout<<"Não há voo registrado"<<endl;
+                    cin.ignore();
+                    cin.get();
+                    break;
+                }else{
+                    system("clear");
+                    cout<<"---------------------Voos registrados--------------------"<<endl;
+                    for (auto& voo : registro_voo) {
+                        cout << voo.dadoNumeroDeVoo() << endl;
+                    }   
+                    cout << "Digite o número de voo: ";
+                    cin >> placa ;
+                    int contador = 0;
+                    system("clear");
+                    
+                    for(auto& astronauta : registro_astronauta){
+                        if(astronauta.dadoStatus() == "Disponível"){
+                            contador++;
+                        }
+                    }
+                    if(contador == 0){
+                        cout<<"Não há voo disponível para registro"<<endl;
+                        cin.ignore();
+                        cin.get();
+                        break;
+                    }else{
 
-                foguetao->registra_astronauta(*vulgo);
-                foguetao->imprime_nomes_astronautas();
-                cout << "Pressione enter para continuar: ";
-                cin.ignore();
-                cin.get();
-                break;
+                    cout<<"---------------------CPF Disponíveis--------------------"<<endl;
+                    for(auto& astronauta : registro_astronauta){
+                        if(astronauta.dadoStatus() == "Disponível"){
+                            cout << "CPF: "<<astronauta.dadoCpf()  << " | Nome: "<<astronauta.dadoNome() << endl;
+                             
+                        }
+                    }
+                    cout << "Digite o CPF a qual deseja registrar no voo " << placa <<  ": ";
+                    cin >> cpf;
+                    voo* foguetao = find_voo(registro_voo, placa);
+                    astronauta* vulgo = find_CPF(registro_astronauta, cpf);
+                    vulgo->status_abordo();
+                    //vulgo->showMe();
+
+                    foguetao->registra_astronauta(*vulgo);
+                    foguetao->imprime_nomes_astronautas();
+                    cout << "CPF registrado com sucesso!! precione enter para continuar: ";
+                    cin.ignore();
+                    cin.get();
+                    break;
+                    }
+                }
+                
+                
             }
             case 4:{
                 int placa;
+                 cout<<"---------------------CPF Disponíveis--------------------"<<endl;
+                    for(auto& astronauta : registro_astronauta){
+                        if(astronauta.dadoStatus() == "Disponível"){
+                            cout << "CPF: "<<astronauta.dadoCpf()  << " | Nome: "<<astronauta.dadoNome() << endl;
+                             
+                        }
+                    }
                 string cpf;
-                cout << "Digite o número do cpf que será retirado: ";
+                    
+                    cout << "Digite o número do cpf que será retirado: ";
                 cin >> cpf;
+                cout<<"---------------------Voos registrados--------------------"<<endl;
+                    for (auto& voo : registro_voo) {
+                        cout << voo.dadoNumeroDeVoo() << endl;
+                    } 
                 cout << "Digite o número de voo a qual será retirado: ";
+                 
                 cin >> placa ;
                 voo* foguetao = find_voo(registro_voo, placa);
                 astronauta* vulgo = find_CPF(registro_astronauta, cpf);
@@ -114,6 +197,12 @@ void menu(){
             }
             case 5:{
                 int placa;
+                cout<<"---------------------Voos Planejados--------------------"<<endl;
+                    for (auto& voo : registro_voo) {
+                        if(voo.dado_status_voo() == "Planejado"){
+                            cout << voo.dadoNumeroDeVoo() << endl;
+                        }
+                    }
                 cout << "Digite o número de voo a qual irá decolar: ";
                 cin >> placa;
                 voo* foguetao = find_voo(registro_voo, placa);
@@ -123,7 +212,7 @@ void menu(){
                     foguetao->muda_status_astronauta_decolando();
                 }
                 else{
-                    cout << "Não há passageiro e, por tanto, não podemos decolar.";
+                    cout << "Não há passageiro e, por tanto, não podemos decolar."<<endl;
                     cout << "Pressione enter para continuar: ";
                     cin.ignore();
                     cin.get();
@@ -133,6 +222,12 @@ void menu(){
             }
             case 6:{
                 int placa;
+                cout<<"---------------------Voos Planejados--------------------"<<endl;
+                    for (auto& voo : registro_voo) {
+                        if(voo.dado_status_voo() == "Em curso"){
+                            cout << voo.dadoNumeroDeVoo() << endl;
+                        }
+                    }
                 cout << "Digite o número de voo a qual será explodido: ";
                 cin >> placa;
                 voo* foguetao = find_voo(registro_voo, placa);
