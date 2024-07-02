@@ -7,7 +7,7 @@
 #include "busca.h"
 using namespace std;
 
-
+// test
 
 void menu(){
     int loop = 1;
@@ -73,7 +73,7 @@ void menu(){
                 add_array(registro_astronauta, vulgo);
                 length_astronauta++;
                 
-                cout << "Pressione enter para continuar: ";
+                cout << "Astronauta registrado com sucesso!! pressione enter para continuar: ";
                 cin.ignore();
                 cin.get();
                 break;
@@ -102,6 +102,9 @@ void menu(){
 
                 foguetao.registra_voo(anota_placa);
                 add_array_2(registro_voo, foguetao);
+                cout << "Voo registrado com sucesso!! pressione enter para continuar: ";
+                cin.ignore();
+                cin.get();
 
                 break;
                 }else{
@@ -281,7 +284,11 @@ void menu(){
                     cout << "Pressione enter para continuar: ";
                     cin.ignore();
                     cin.get();
+                    break;
                 }
+                cout << "Voo lançado! precione enter para continuar";
+                cin.ignore();
+                cin.get();
                 
                 break;
             }
@@ -319,7 +326,7 @@ void menu(){
                 }
                 voo* foguetao = find_voo(registro_voo, placa);
                 foguetao->imprime_nomes_astronautas();
-                cout << "Pressione enter para continuar: ";
+                cout << "Voo explodiu!! Pressione enter para continuar: ";
                 cin.ignore();
                 cin.get();
                 foguetao->kabum();
@@ -362,6 +369,10 @@ void menu(){
                 }
                 voo* foguetao = find_voo(registro_voo, placa);
                 foguetao->muda_status_astronauta_pouso();
+                cout<<"Voo Pousou! precione enter pra continuar:"<<endl;
+                    cin.ignore();
+                    cin.get();
+
 
 
                 break;
