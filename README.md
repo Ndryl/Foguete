@@ -2,13 +2,7 @@
 
 <p align="center">
 Trabalho de Linguagem de programação I <br/>
-<a href="https://github.com/Ndryl/Foguete">Link para projeto</a>
 </p>
-
-<p align="center">
-  <img alt="License" src="../c/Sem título.xcf">
-</p>
-
 <br>
 
 # 🚀 Tecnologias
