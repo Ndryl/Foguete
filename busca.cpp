@@ -15,6 +15,8 @@ astronauta* find_CPF(vector<astronauta>& lista, const string& cpf) {
         }
     }
     cout << "Este CPF não está cadastrado." << endl;
+    cin.ignore();
+    cin.get();
     return nullptr;
 }
 

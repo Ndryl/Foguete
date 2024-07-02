@@ -20,7 +20,7 @@ void voo::registra_astronauta(astronauta& novoAstronauta){
 void voo::imprime_nomes_astronautas() {
         // Itera sobre o vetor cadastro e imprime os nomes de cada astronauta
         for (const auto& astronauta : cadastro) {
-            cout << astronauta.dadoNome() << endl;
+            cout <<"Nome: " << astronauta.dadoNome() << "| CPF: " << astronauta.dadoCpf() << endl;
         }
 }
 void voo::busca_cpf(string cpf) {
